@@ -23,14 +23,13 @@ def fetch_naver_latest_data():
         link = item["href"]
         page_link_raw = web_page_link_root + item["href"]
         page_link_parts = urlparse(page_link_raw)
-        normalized_page_link = page_link_parts.scheme + '://' + page_link_parts.hostname + page_link_parts.path
 
         # specific id
         specific_id = page_link_parts.path.split('/')[-1]
 
         item_obj = {
             'title': title,
-            'link': normalized_page_link,
+            'link': link,
             'specific_id': specific_id,
         }
 
