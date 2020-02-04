@@ -16,18 +16,9 @@
 <body>
     <div class="jumbotron text-center">
       <h1>네이버 뉴스 검색기</h1>
-      <p>검색어를 입력해주세요!</p>
-        <form method="post" action="{% url 'crawling_main:result'}}">
-            {% csrf_token %}
-            {{ form.as_p }}
-            <!--<label for="word">검색어 </label>
-            <div class="form-group">
-              <input type="text" class="form-control" id="search_word" name="search_word" label="search_word">
-            </div>-->
-            <button type="submit" class="btn btn-primary">검색</button>
-      </form>
+        <button onclick="location.href='/'"  type="submit" class="btn btn-primary">돌아가기</button>
     </div>
-   <!-- <div class="col-md-12">
+   <div class="col-md-12">
         <div class="container">
             <div class="list-group col">
                 {% for list in result %}
@@ -37,6 +28,6 @@
                 {% endfor %}
             </div>
         </div>
-    </div>-->
+    </div>
 </body>
 </html>
