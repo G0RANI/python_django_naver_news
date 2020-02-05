@@ -18,7 +18,6 @@ class Crawling_main(generic.TemplateView):
 def result(request):
     template_name = 'crawling_main/result.html'
     word = request.POST['word']
-    form = SearchForm()
     object = naver_crawler.fetch_naver_latest_data(word)
     result = object['result']
     title_list = object['title_list']
