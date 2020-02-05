@@ -17,7 +17,6 @@ from PIL import Image
 def fetch_naver_latest_data(word):
     result = []
     title_list = []
-    object = []
     page = 1
     maxpage_t = (int(5) - 1) * 10 + 1
 
@@ -30,10 +29,9 @@ def fetch_naver_latest_data(word):
 
         web_page_link_root = "https://search.naver.com"
         for item in list_items:
-            # title
+
             title = item.text
 
-            # link
             link = item["href"]
             page_link_raw = web_page_link_root + item["href"]
             page_link_parts = urlparse(page_link_raw)
@@ -54,24 +52,21 @@ def make_wordcloud(title_list):
     twitter = Twitter()
 
     sentences_tag = []
-    # 형태소 분석하여 리스트에 넣기
+
     for sentence in title_list:
         morph = twitter.pos(sentence)
         sentences_tag.append(morph)
 
     noun_adj_list = []
-    # 명사와 형용사만 구분하여 이스트에 넣기
+
     for sentence1 in sentences_tag:
         for word, tag in sentence1:
             if tag in ['Noun', 'Adjective']:
                 noun_adj_list.append(word)
 
-    # 형태소별 count
     counts = Counter(noun_adj_list)
     tags = counts.most_common(2000)
 
-    # wordCloud생성
-    # 한글꺠지는 문제 해결하기위해 font_path 지정
     d = os.path.dirname(__file__) if "__file__" in locals() else os.getcwd()
     mask = np.array(Image.open(os.path.join(d+'/crawling_main/static/img/mask/kor_mask.png')))
     data = dict(tags)
