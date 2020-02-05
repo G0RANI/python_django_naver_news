@@ -15,7 +15,7 @@
 </head>
 <body>
     <div class="jumbotron text-center">
-      <h1>네이버 뉴스 검색기</h1>
+      <h1>네이버 뉴스 검색기</h1><br>
         <img src="{% static 'img/wordcloud.png'%}"><br><br>
         <button onclick="location.href='/'"  type="submit" class="btn btn-primary">돌아가기</button>
     </div>
@@ -24,7 +24,7 @@
             <div class="list-group col">
                 {% for list in result %}
                     <div class="list-group-item">
-                        <a href={{ list.href }}>{{ list.title }}</a>
+                        <a href={{ list.link }}>{{ list.title }}</a>
                     </div>
                 {% endfor %}
             </div>

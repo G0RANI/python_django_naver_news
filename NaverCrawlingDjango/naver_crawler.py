@@ -8,17 +8,18 @@ import matplotlib.pyplot as plt
 from konlpy.tag import Twitter
 from collections import Counter
 from wordcloud import WordCloud
+from wordcloud import ImageColorGenerator
 
 import numpy as np
 from PIL import Image
-from wordcloud import STOPWORDS
+
 
 def fetch_naver_latest_data(word):
     result = []
     title_list = []
     object = []
     page = 1
-    maxpage_t = (int(10) - 1) * 10 + 1
+    maxpage_t = (int(5) - 1) * 10 + 1
 
     while page <= maxpage_t:
         url = 'https://search.naver.com/search.naver?&where=news&query='+word+'&sm=tab_pge&sort=0&photo=0&field=0&reporter_article=&pd=0&ds=&de=&docid=&nso=so:r,p:all,a:all&mynews=0&cluster_rank=75&start='+ str(page) +'&refresh_start=0'
@@ -67,15 +68,16 @@ def make_wordcloud(title_list):
 
     # 형태소별 count
     counts = Counter(noun_adj_list)
-    tags = counts.most_common(50)
+    tags = counts.most_common(2000)
 
     # wordCloud생성
     # 한글꺠지는 문제 해결하기위해 font_path 지정
-    wc = WordCloud(font_path='C:/Windows/Fonts/malgun.ttf', relative_scaling = 0.2, background_color= 'white')
-    data = dict(tags)
-    cloud = wc.generate_from_frequencies(data)
-    plt.figure(figsize=(10, 8))
-    plt.imshow(cloud)
-    plt.axis('off')
     d = os.path.dirname(__file__) if "__file__" in locals() else os.getcwd()
-    wc.to_file(os.path.join(d+"/crawling_main/static/img", "wordcloud.png"))
+    mask = np.array(Image.open(os.path.join(d+'/crawling_main/static/img/mask/kor_mask.png')))
+    data = dict(tags)
+    wc = WordCloud(font_path='C:/Windows/Fonts/malgun.ttf',  background_color = 'white', mask = mask).generate(' '.join(data))
+    image_colors = ImageColorGenerator(mask)
+    plt.figure(figsize=(10, 8))
+    plt.imshow(wc.recolor(color_func = image_colors), interpolation='bilinear')
+    plt.axis('off')
+    plt.savefig(os.path.join(d+"/crawling_main/static/img", "wordcloud.png"))
