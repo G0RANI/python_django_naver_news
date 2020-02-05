@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="ko">
-
+{% load static %}
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta charset="utf-8">
@@ -11,11 +11,12 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
-    <title>corona</title>
+    <title>검색기</title>
 </head>
 <body>
     <div class="jumbotron text-center">
       <h1>네이버 뉴스 검색기</h1>
+        <img src="{% static 'img/wordcloud.png'%}"><br><br>
         <button onclick="location.href='/'"  type="submit" class="btn btn-primary">돌아가기</button>
     </div>
    <div class="col-md-12">

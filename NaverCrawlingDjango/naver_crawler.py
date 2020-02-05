@@ -78,4 +78,4 @@ def make_wordcloud(title_list):
     plt.imshow(cloud)
     plt.axis('off')
     d = os.path.dirname(__file__) if "__file__" in locals() else os.getcwd()
-    wc.to_file(os.path.join(d, "wordcloud.png"))
+    wc.to_file(os.path.join(d+"/crawling_main/static/img", "wordcloud.png"))
